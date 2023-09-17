@@ -33,6 +33,8 @@ int main(void)
 	//display board
 	print_sudoku(tab);
 
+	solve(tab);
 
+	print_sudoku(tab);
 	return 0;
 }
