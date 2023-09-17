@@ -1,5 +1,7 @@
 #include <stddef.h>
 #include <stdio.h>
+#include "print-sudoku.h"
+
 
 unsigned int check_line (size_t pos[2], unsigned int tab[][9])
 { 
@@ -63,7 +65,7 @@ void next (size_t pos[2], unsigned int ref[][9])
 	do {
 		x = (x + 1) % 9;
 		y += !(x);
-	} while (!ref[y][x]);
+	} while (ref[y][x]);
 	pos[1] = x;
 	pos[0] = y;
 }
@@ -81,9 +83,16 @@ void prev (size_t pos[2], unsigned int ref[][9])
 		}
 		else 
 			x--;
-	} while (!ref[y][x]);
+	} while (ref[y][x]);
 	pos[1] = x;
 	pos[0] = y;
+}
+
+unsigned int possible (size_t pos[2], unsigned int tab[][9])
+{ 
+	//returns 0 if the current state of the board is impossible, else not 0
+	printf("exec: possible\n");
+	return (check_line(pos, tab) && check_column(pos, tab)) && check_box(pos, tab);
 }
 
 void mv_next (size_t pos[2], unsigned int tab[][9], unsigned int ref[][9])
@@ -92,12 +101,12 @@ void mv_next (size_t pos[2], unsigned int tab[][9], unsigned int ref[][9])
 	
 	size_t x = pos[1];
 	size_t y = pos[0];
-	unsigned int cur = tab[y][x];
 	
-	if (cur < 9) 
-		tab[y][x]++;
-	else 
+	if(possible(pos, tab))
+	{
 		next(pos,ref);
+	}
+	else tab[y][x]++;
 }
 
 void mv_prev (size_t pos[2], unsigned int tab[][9], unsigned int ref[][9])
@@ -112,16 +121,10 @@ void mv_prev (size_t pos[2], unsigned int tab[][9], unsigned int ref[][9])
 		prev(pos,ref);
 		x = pos[1];
 		y = pos[0];
-	}while (tab[y][x] < 9);
+	}while (tab[y][x] == 9);
+	tab[y][x]++;
 }
 
-unsigned int possible (size_t pos[2], unsigned int tab[][9])
-{ 
-	//returns 0 if the current state of the board is impossible, else not 0
-	
-	return (check_line(pos, tab) && check_column(pos, tab)) && check_box(pos, tab);
-
-}
 
 void solve (unsigned int tab[][9])
 {
@@ -133,12 +136,21 @@ void solve (unsigned int tab[][9])
 		for(size_t y = 0; y < 9; y++)
 			ref[x][y] = tab[x][y];
 	size_t p[] = {0,0}; //array representing the current position
-	
+	unsigned int i = 0;
 	while(1)
 	{
+		i++;
+		printf("\033[20A");
+		printf("\033[20D");
+		print_sudoku(tab);
 		//iteration
 		size_t x = p[1];
 		size_t y = p[0];
+		if (tab[y][x] > 9)
+		{
+			printf("wtf - %u", i);
+			break;
+		}
 		if (y == 9) 
 		{
 			p[0] = 8;
