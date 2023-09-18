@@ -3,6 +3,7 @@
 
 void print_sudoku(unsigned int tab[][9])
 {
+	printf("\n");
 	for(size_t y = 0; y < 9; y++)
 	{
 		if (!(y % 3)) printf("\n");
@@ -10,9 +11,9 @@ void print_sudoku(unsigned int tab[][9])
 		{
 			if (!(x % 3)) printf(" ");
 			//pretty printing UwU
-			unsigned int i = tab[x][y];
+			unsigned int i = tab[y][x];
 			if (i) printf("%u", i);
-			else printf(" ");
+			else printf("_");
 		}
 		printf("\n");
 	}
