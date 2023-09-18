@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
+
 int main(void)
 {
 	unsigned int tab[9][9];
@@ -29,12 +30,13 @@ int main(void)
 			tab[y][x++] = c - '0';
 	}
 
-
+	//printf("\033[20A");
+	//printf("\033[20D");
 	//display board
 	print_sudoku(tab);
-
+	
 	solve(tab);
 
-	//print_sudoku(tab);
+	print_sudoku(tab);
 	return 0;
 }

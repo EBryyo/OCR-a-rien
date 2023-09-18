@@ -144,16 +144,12 @@ void solve (unsigned int tab[][9])
 		printf("\033[20A");
 		printf("\033[20D");
 		print_sudoku(tab);
-		//for(unsigned int j = 0; j < 1000000000; j++)
-		//{}
+		
+		for(unsigned int j = 0; j < 100000000; j++)
+		{}
 			//iteration
 		size_t x = p[1];
 		size_t y = p[0];
-		if (tab[y][x] > 9 || ref[y][x])
-		{
-			printf("wtf - %u, x = %zu, y = %zu, machin = %u", i, x, y, tab[5][7]);
-			break;
-		}
 		
 		if (y > 8)
 		{
