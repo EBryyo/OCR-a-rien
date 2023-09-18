@@ -153,6 +153,8 @@ void solve (unsigned int tab[][9])
 		
 		if (y > 8)
 		{
+			p[1] = 8;
+			p[0] = 8;
 			if (possible(p,tab))
 				break;
 			else 
