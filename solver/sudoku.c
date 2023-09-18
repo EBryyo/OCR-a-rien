@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "print-sudoku.h"
-
+#include <stdlib.h>
 
 unsigned int check_line (size_t pos[2], unsigned int tab[][9])
 { 
@@ -91,7 +91,7 @@ void prev (size_t pos[2], unsigned int ref[][9])
 unsigned int possible (size_t pos[2], unsigned int tab[][9])
 { 
 	//returns 0 if the current state of the board is impossible, else not 0
-	printf("exec: possible\n");
+	//printf("exec: possible\n");
 	return (check_line(pos, tab) && check_column(pos, tab)) && check_box(pos, tab);
 }
 
@@ -102,9 +102,10 @@ void mv_next (size_t pos[2], unsigned int tab[][9], unsigned int ref[][9])
 	size_t x = pos[1];
 	size_t y = pos[0];
 	
-	if(possible(pos, tab))
+	if (possible(pos,tab))
 	{
 		next(pos,ref);
+		tab[pos[0]][pos[1]]++;
 	}
 	else tab[y][x]++;
 }
@@ -121,7 +122,7 @@ void mv_prev (size_t pos[2], unsigned int tab[][9], unsigned int ref[][9])
 		prev(pos,ref);
 		x = pos[1];
 		y = pos[0];
-	}while (tab[y][x] == 9);
+	} while (tab[y][x] == 9);
 	tab[y][x]++;
 }
 
@@ -143,31 +144,34 @@ void solve (unsigned int tab[][9])
 		printf("\033[20A");
 		printf("\033[20D");
 		print_sudoku(tab);
-		//iteration
+		//for(unsigned int j = 0; j < 1000000000; j++)
+		//{}
+			//iteration
 		size_t x = p[1];
 		size_t y = p[0];
-		if (tab[y][x] > 9)
+		if (tab[y][x] > 9 || ref[y][x])
 		{
-			printf("wtf - %u", i);
+			printf("wtf - %u, x = %zu, y = %zu, machin = %u", i, x, y, tab[5][7]);
 			break;
 		}
-		if (y == 9) 
+		
+		if (y > 8)
 		{
-			p[0] = 8;
-			p[1] = 8;
-			if (possible(p, tab))
-			{
-				printf("done! \n");
+			if (possible(p,tab))
 				break;
+			else 
+			{
+				p[1] = 8;
+				p[0] = 8;
+				if (ref[8][8])
+					prev(p,ref);
+				mv_prev(p,tab,ref);
 			}
 		}
-		
-		unsigned int cur = tab[y][x];
-		
-		if (!possible(p,tab) && cur == 9)
-			mv_prev(p, tab, ref);
+		if (!possible(p,tab) && tab[y][x] == 9)
+			mv_prev(p,tab,ref);
 		else 
-			mv_next(p, tab, ref);
+			mv_next(p,tab,ref);
 	}
 	
 }

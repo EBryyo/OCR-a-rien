@@ -3,6 +3,7 @@
 
 void print_sudoku(unsigned int tab[][9])
 {
+	printf("\n");
 	for(size_t y = 0; y < 9; y++)
 	{
 		if (!(y % 3)) printf("\n");

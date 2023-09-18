@@ -35,6 +35,6 @@ int main(void)
 
 	solve(tab);
 
-	print_sudoku(tab);
+	//print_sudoku(tab);
 	return 0;
 }
