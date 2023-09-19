@@ -6,7 +6,7 @@
 
 int main(void)
 {
-	unsigned int tab[9][9];
+	int tab[16][16];
 	//for(size_t x = 0; x < 9; x++)
 	//	for(size_t y = 0; y < 9; y++)
 	//		tab[x][y] = 2;
@@ -27,15 +27,20 @@ int main(void)
 			y++;
 		}
 		else
-			tab[y][x++] = c - '0';
+		{
+			if (c == ' ') 
+				tab[y][x++] = -1;
+			else 
+				tab[y][x++] = c > '9' ? 10 + c - 'A' : c - '0';
+		}
 	}
 
 	printf("\033[20A");
 	printf("\033[20D");
 	//display board
-	//print_sudoku(tab);
+	print_sudoku(tab);
 	
-	solve(tab);
+	//solve(tab);
 
 	//print_sudoku(tab);
 	return 0;

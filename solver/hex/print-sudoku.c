@@ -1,19 +1,23 @@
 #include <stdio.h>
 #include <stddef.h>
 
-void print_sudoku(unsigned int tab[][9])
+void print_sudoku(int tab[][16])
 {
 	printf("\n");
-	for(size_t y = 0; y < 9; y++)
+	for(size_t y = 0; y < 16; y++)
 	{
-		if (!(y % 3)) printf("\n");
-		for(size_t x = 0; x < 9; x++)
+		if (!(y % 4)) printf("\n");
+		for(size_t x = 0; x < 16; x++)
 		{
-			if (!(x % 3)) printf(" ");
+			if (!(x % 4)) printf(" ");
 			//pretty printing UwU
-			unsigned int i = tab[y][x];
-			if (i) printf("%u", i);
-			else printf("_");
+			int i = tab[y][x];
+			//if (i) printf("%u", i);
+			//else printf("_");
+			if (i < 0)
+				printf("_");
+			else
+				printf("%c", i <= 9 ? i + '0' : i - 10 + 'A');
 		}
 		printf("\n");
 	}
