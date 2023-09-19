@@ -35,13 +35,14 @@ int main(void)
 		}
 	}
 
-	printf("\033[20A");
-	printf("\033[20D");
+	//printf("\033[25A");
+	//printf("\033[25D");
 	//display board
 	print_sudoku(tab);
 	
-	//solve(tab);
+	solve(tab);
 
+	print_sudoku(tab);
 	//print_sudoku(tab);
 	return 0;
 }

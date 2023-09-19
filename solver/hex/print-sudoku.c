@@ -14,7 +14,7 @@ void print_sudoku(int tab[][16])
 			int i = tab[y][x];
 			//if (i) printf("%u", i);
 			//else printf("_");
-			if (i < 0)
+			if (i == -1)
 				printf("_");
 			else
 				printf("%c", i <= 9 ? i + '0' : i - 10 + 'A');
