@@ -150,8 +150,6 @@ void solve (unsigned int tab[][9])
 				break;
 			else 
 			{
-				p[1] = 8;
-				p[0] = 8;
 				if (ref[8][8])
 					prev(p,ref);
 				mv_prev(p,tab,ref);

@@ -1,14 +1,13 @@
 #include <stddef.h>
 #include <stdio.h>
-#include "print-sudoku.h"
 #include <stdlib.h>
 
 int check_line (size_t pos[2], int tab[][16])
 { //done
 	//checks if line is valid
 	
-	int x = pos[1];
-	int y = pos[0];
+	size_t x = pos[1];
+	size_t y = pos[0];
 	int cur = tab[y][x];
 	
 	for(size_t X = 0; X < 16; X++)
@@ -145,8 +144,8 @@ void solve (int tab[][16])
 		//printf("\033[25D");
 		//print_sudoku(tab);
 		
-		for(int j = 0; j < 10000; j++)
-		{}
+		//for(int j = 0; j < 10000; j++)
+		//{}
 			//iteration
 		size_t x = p[1];
 		size_t y = p[0];

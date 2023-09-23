@@ -1,11 +1,11 @@
-solver: main.c print-sudoku.o sudoku.o
-	gcc -Wall -Wextra -Werror -o solver -Wall -Wextra -Werror main.c print-sudoku.o sudoku.o
+solver: main.c sudoku.o file-tools.o
+	gcc -o solver -Wall -Wextra -Werror main.c file-tools.o sudoku.o
 
-print-sudoku.o: print-sudoku.c
-	gcc -Wall -Wextra -Werror -c -Wall -Wextra -Werror print-sudoku.c
+file-tools.o: file-tools.c
+	gcc -Wall -Wextra -Werror -c file-tools.c
 
 sudoku.o: sudoku.c
-	gcc -Wall -Wextra -Werror -c -Wall -Wextra -Werror sudoku.c
+	gcc -c -Wall -Wextra -Werror sudoku.c
 
 clean:
 	rm -f *.o
