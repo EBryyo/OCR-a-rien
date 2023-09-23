@@ -2,6 +2,7 @@
 #include "image/image.h"
 #include <stdio.h>
 #include <stddef.h>
+#include "print/print.h"
 
 int main(int argc, char** argv)
 {
