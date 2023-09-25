@@ -1,11 +1,6 @@
 #include <math.h>
 #include <stddef.h>
 
-typedef struct
-{
-    double weights[];
-    double bias;
-} sigmoid;
 
 double fire(sigmoid neuron, double inputs[], size_t len_inputs)
 {
@@ -18,6 +13,6 @@ double fire(sigmoid neuron, double inputs[], size_t len_inputs)
 		x += inputs[i] * neuron->weights[i];
 	}
 	//compute sigmoid function
-	res = 1 / (1 + exp(-x));ù
+	res = 1 / (1 + exp(-x));
 	return res;
 }
