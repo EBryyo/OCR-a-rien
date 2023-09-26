@@ -5,8 +5,8 @@
 
 typedef struct Layer
 {
-    size_t w_out; //width of matrix
-    size_t h_in; //height of matrix
+    size_t w; //width of matrix, number of sigmoids
+    size_t h; //height of matrix, number of inputs/weights
     double** weights;
 }Layer;
 

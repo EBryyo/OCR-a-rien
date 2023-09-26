@@ -26,7 +26,18 @@ void main(void)
     //malloc for output layer
     neural_net->output_layer.weights = calloc(1, sizeof(double*));
     neural_net->output_layer.weights[0] = calloc(2, sizeof(double));
+    neural_net->input_layer.weights[0][0] = 1;
+    neural_net->input_layer.weights[1][0] = 2;
+    neural_net->input_layer.weights[2][0] = 3;
+    neural_net->hidden_layer.weights[0][0] = -1;
+    neural_net->hidden_layer.weights[0][1] = -2;
+    neural_net->hidden_layer.weights[1][2] = 3;
+    neural_net->hidden_layer.weights[1][0] = -2;
+    neural_net->output_layer.weights[0][1] = -2;
+
+
     /*
+    
     set(&neural_net->input_layer,0,0,1);
     set(&neural_net->input_layer,1,0,2);
     set(&neural_net->input_layer,2,0,-2);

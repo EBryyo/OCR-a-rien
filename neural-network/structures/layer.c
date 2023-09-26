@@ -5,10 +5,10 @@
 
 double* compute_output(Layer* layer, double* input, size_t input_len)
 {
-    double* res = calloc(layer->w_out, sizeof(double));
+    double* res = calloc(layer->w, sizeof(double));
     size_t w, h;
-    w = layer->w_out;
-    h = layer->h_in;
+    w = layer->w;
+    h = layer->h;
 
     if (input_len != h)
     {

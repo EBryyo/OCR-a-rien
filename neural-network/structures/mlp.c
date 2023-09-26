@@ -24,19 +24,46 @@ mlp* import_mlp(char* source)
     fread(&n->len_output, sizeof(size_t), 1, file);
 
 
-    size_t m, i;
-    //initialize input_layer
-    
-    //complete input_layer
-    
-    //initalize hidden_layer
+    size_t x, y, i;
 
-    //complete hidden_layer
+    //initialize and complete input_layer
 
-    //initialize output_layer
+    x = n->len_input;
+    y = 1;
+    n->input_layer.w = x;
+    n->input_layer.h = y;
+    n->input_layer.weights = calloc(x,sizeof(double*));
+    for(i = 0; i < x; i++)
+    {
+        n->input_layer.weights[i] = calloc(y,sizeof(double));
+        fread(n->input_layer.weights[i], sizeof(double), y, file);
+    }
 
-    //complete output_layer
+    //initalize and complete hidden_layer
 
+    x = n->len_hidden;
+    y = n->len_input;
+    n->input_layer.w = x;
+    n->input_layer.h = y;
+    n->input_layer.weights = calloc(x,sizeof(double*));
+    for(i = 0; i < x; i++)
+    {
+        n->input_layer.weights[i] = calloc(y,sizeof(double));
+        fread(n->input_layer.weights[i], sizeof(double), y, file);
+    }
+
+    //initialize and complete output_layer
+
+    x = n->len_output;
+    y = n->len_hidden;
+    n->input_layer.w = x;
+    n->input_layer.h = y;
+    n->input_layer.weights = calloc(x,sizeof(double*));
+    for(i = 0; i < x; i++)
+    {
+        n->input_layer.weights[i] = calloc(y,sizeof(double));
+        fread(n->input_layer.weights[i], sizeof(double), y, file);
+    }
 
     fclose(file);
     return n;
@@ -80,9 +107,9 @@ void print_mlp(mlp* n)
     printf("length : %zu\n", n->len_input);
     for(size_t i = 0; i < n->len_input; i++)
     {
-	printf("sigmoid %zu: ", i);
-	printf("%lf", n->input_layer.weights[i][0]);
-	printf("\n");
+        printf("sigmoid %zu: ", i);
+        printf("%lf", n->input_layer.weights[i][0]);
+        printf("\n");
     }
 
     printf("\nhidden layer:\n");
@@ -90,12 +117,12 @@ void print_mlp(mlp* n)
     
     for(size_t i = 0; i < n->len_hidden; i++)
     {
-	printf("sigmoid %zu: ", i);
-	for(size_t j = 0; j < n->len_input; j++)
-	{
-	    printf("%lf ", n->hidden_layer.weights[i][j]);
-	}
-	printf("\n");
+        printf("sigmoid %zu: ", i);
+        for(size_t j = 0; j < n->len_input; j++)
+        {
+            printf("%lf ", n->hidden_layer.weights[i][j]);
+        }
+        printf("\n");
     }
 
 
@@ -104,11 +131,11 @@ void print_mlp(mlp* n)
 
     for(size_t i = 0; i < n->len_output; i++)
     {
-	printf("sigmoid %zu: ", i);
-	for(size_t j = 0; j < n->len_hidden; j++)
-	{
-	    printf("%lf ", n->output_layer.weights[i][j]);
-	}
-	printf("\n");
+        printf("sigmoid %zu: ", i);
+        for(size_t j = 0; j < n->len_hidden; j++)
+        {
+            printf("%lf ", n->output_layer.weights[i][j]);
+        }
+        printf("\n");
     }
 }
