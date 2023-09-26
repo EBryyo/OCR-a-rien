@@ -6,14 +6,14 @@
 
 typedef struct
 {
-	Layer input_layer;
-	size_t len_input;
+    Layer input_layer;
+    size_t len_input;
 
-	Layer hidden_layer;
+    Layer hidden_layer;
     size_t len_hidden;
 
     Layer output_layer;
-	size_t len_output;
+    size_t len_output;
 } mlp;
 
 void compute(mlp network, double* input, size_t len, unsigned char output);
