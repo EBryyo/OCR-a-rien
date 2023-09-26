@@ -8,22 +8,32 @@ void main(void)
 {
     size_t i;
     mlp* neural_net = calloc(1, sizeof(mlp));
-    neural_net->len_input = 3;
-    neural_net->len_hidden = 2;
-    neural_net->len_output = 1;
     //malloc for input layer
+    neural_net->input_layer.w = 3;
+    neural_net->input_layer.h = 1;
     neural_net->input_layer.weights = calloc(3,sizeof(double*));
-    for(i = 0; i < neural_net->len_input; i++)
+    for(i = 0; i < neural_net->input_layer.w; i++)
     {
-	neural_net->input_layer.weights[i] = calloc(1,sizeof(double));
+        neural_net->input_layer.weights[i] = calloc(1,sizeof(double));
     }
     //malloc for hidden layer
+    neural_net->hidden_layer.w = 2;
+    neural_net->hidden_layer.h = 3;
     neural_net->hidden_layer.weights = calloc(2, sizeof(double*));
-    for(i = 0; i < neural_net->len_hidden; i++)
+    for(i = 0; i < neural_net->hidden_layer.w; i++)
     {
-	neural_net->hidden_layer.weights[i] = calloc(3,sizeof(double));
+        neural_net->hidden_layer.weights[i] = calloc(3,sizeof(double));
     }
     //malloc for output layer
+    neural_net->output_layer.w = 1;
+    neural_net->output_layer.h = 2;
+    neural_net->output_layer.weights = calloc(1, sizeof(double*));
+    for(i = 0; i < neural_net->output_layer.w; i++)
+    {
+        neural_net->output_layer.weights[i] = calloc(2,sizeof(double));
+    }
+
+
     neural_net->output_layer.weights = calloc(1, sizeof(double*));
     neural_net->output_layer.weights[0] = calloc(2, sizeof(double));
     neural_net->input_layer.weights[0][0] = 1;
@@ -34,6 +44,8 @@ void main(void)
     neural_net->hidden_layer.weights[1][2] = 3;
     neural_net->hidden_layer.weights[1][0] = -2;
     neural_net->output_layer.weights[0][1] = -2;
+    neural_net->output_layer.weights[0][0] = 4;
+
 
 
     /*
@@ -55,5 +67,6 @@ void main(void)
     
     mlp* n = import_mlp("network");
     print_mlp(neural_net);
+    printf("\n");
     print_mlp(n);
  }

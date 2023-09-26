@@ -7,14 +7,13 @@
 typedef struct
 {
     Layer input_layer;
-    size_t len_input;
 
     Layer hidden_layer;
-    size_t len_hidden;
 
     Layer output_layer;
-    size_t len_output;
 } mlp;
+mlp* init(size_t inputlen, size_t hiddenlen, size_t outputlen);
+//initializes a network with appropriate sigmoid counts each layer
 
 void compute(mlp network, double* input, size_t len, unsigned char output);
 //computes input array through the MLP and into the output array
