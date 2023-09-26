@@ -80,7 +80,7 @@ mlp* import_mlp(char* source)
     for(i = 0; i < x; i++)
     {
         n->input_layer.weights[i] = calloc(y, sizeof(double));
-        fread(&n->input_layer.weights[i][0], sizeof(double), y, file);
+        fread(n->input_layer.weights[i], sizeof(double), y, file);
     }
 
     //initalize and complete hidden_layer
@@ -91,7 +91,7 @@ mlp* import_mlp(char* source)
     for(i = 0; i < x; i++)
     {
         n->hidden_layer.weights[i] = calloc(y,sizeof(double));
-        fread(&n->hidden_layer.weights[i][0], sizeof(double), y, file);
+        fread(n->hidden_layer.weights[i], sizeof(double), y, file);
     }
 
     //initialize and complete output_layer
@@ -102,7 +102,7 @@ mlp* import_mlp(char* source)
     for(i = 0; i < x; i++)
     {
         n->output_layer.weights[i] = calloc(y,sizeof(double));
-        fread(&n->output_layer.weights[i][0], sizeof(double), y, file);
+        fread(n->output_layer.weights[i], sizeof(double), y, file);
     }
 
     fclose(file);
@@ -125,17 +125,17 @@ void export_mlp(mlp* n, char* destination)
     m = n->input_layer.w;
     for(i = 0; i < m; i++)
     {
-        fwrite(&n->input_layer.weights[i][0], sizeof(double), n->input_layer.h, file);
+        fwrite(n->input_layer.weights[i], sizeof(double), n->input_layer.h, file);
     }
     m = n->hidden_layer.w;
     for(i = 0; i < m; i++)
     {
-        fwrite(&n->hidden_layer.weights[i][0], sizeof(double), n->hidden_layer.h, file);
+        fwrite(n->hidden_layer.weights[i], sizeof(double), n->hidden_layer.h, file);
     }
     m = n->output_layer.w;
     for(i = 0; i < m; i++)
     {
-        fwrite(&n->output_layer.weights[i][0], sizeof(double), n->output_layer.h, file);
+        fwrite(n->output_layer.weights[i], sizeof(double), n->output_layer.h, file);
     }
     
     fclose(file);
