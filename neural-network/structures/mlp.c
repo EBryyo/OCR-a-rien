@@ -11,64 +11,35 @@ void compute(mlp network, double* input, size_t len, unsigned char output)
 
 mlp* import_mlp(char* source)
 {
-    mlp* res;
-    size_t input_len, hidden_len, output_len;
+    mlp* n;
     FILE* file = fopen(source,"rb");
 
 
     //allocate memory for the mlp
-    res = calloc(1,sizeof(mlp));
+    n = calloc(1,sizeof(mlp));
 
-    //read layer lengths from source
-    fread(&input_len, sizeof(size_t), 1, file);
-    fread(&hidden_len, sizeof(size_t), 1, file);
-    fread(&output_len, sizeof(size_t), 1, file);
+    //read layer lengths from source into corresponding res fields
+    fread(&n->len_input, sizeof(size_t), 1, file);
+    fread(&n->len_hidden, sizeof(size_t), 1, file);
+    fread(&n->len_output, sizeof(size_t), 1, file);
 
-    //add layer lengths to mlp struct
-    res->len_input = input_len;
-    res->len_hidden = hidden_len;
-    res->len_output = output_len;
 
     size_t m, i;
     //initialize input_layer
-    res->input_layer.w_out = input_len;
-    res->input_layer.h_in = 1;
-    m = input_len;
-    //printf("m = %lu\n", m);
-    res->input_layer.weights = calloc(m,sizeof(double*));
-    for(i = 0; i < 1; i++)
-    {
-	res->input_layer.weights[i] = calloc(1,sizeof(double));
-	fread(res->input_layer.weights[i],sizeof(double),1,file);
-    }
-
+    
+    //complete input_layer
+    
     //initalize hidden_layer
-    res->hidden_layer.w_out = hidden_len;
-    res->hidden_layer.h_in = input_len;
-    m = input_len * hidden_len;
-    //printf("m = %lu\n", m);
-    res->hidden_layer.weights = calloc(m, sizeof(double));
-    for(i = 0; i < 1; i++)
-    {
-	res->hidden_layer.weights[i] = calloc(input_len,sizeof(double));
-	fread(res->hidden_layer.weights[i],sizeof(double),input_len,file);
-    }
+
+    //complete hidden_layer
 
     //initialize output_layer
-    res->output_layer.w_out = output_len;
-    res->output_layer.h_in = hidden_len;
-    m = hidden_len * output_len;
-    //printf("m = %lu\n", m);
-    res->output_layer.weights = calloc(m, sizeof(double));
-    for(i = 0; i < 1; i++)
-    {
-	res->output_layer.weights[i] = calloc(hidden_len,sizeof(double));
-	fread(res->output_layer.weights[i],sizeof(double),hidden_len,file);
-    }
+
+    //complete output_layer
+
 
     fclose(file);
-    printf("flag\n");
-    return res;
+    return n;
 }
 
 void export_mlp(mlp* n, char* destination)
@@ -81,16 +52,25 @@ void export_mlp(mlp* n, char* destination)
     fwrite(&n->len_hidden, sizeof(size_t), 1, file);
     fwrite(&n->len_output, sizeof(size_t), 1, file);
 
-    size_t m;
+    size_t m, i;
 
     //write weights for each layer
     m = n->len_input;
-    fwrite(n->input_layer.weights, sizeof(double), m, file);
+    for(i = 0; i < m; i++)
+    {
+        fwrite(&n->input_layer.weights[i], sizeof(double),1, file);
+    }
     m = n->len_input * n->len_hidden;
-    fwrite(n->hidden_layer.weights, sizeof(double), m, file);
+    for(i = 0; i < m; i++)
+    {
+        fwrite(&n->hidden_layer.weights[i], sizeof(double), n->len_input, file);
+    }
     m = n->len_hidden * n->len_output;
-    fwrite(n->output_layer.weights, sizeof(double), m, file);
-
+    for(i = 0; i < m; i++)
+    {
+        fwrite(&n->output_layer.weights[i], sizeof(double), n->len_hidden, file);
+    }
+    
     fclose(file);
 }
 
