@@ -6,6 +6,13 @@
 
 void main(void)
 {
+    //mlp* n;
+    //n = init(27*27, 100, 10);
+    //export_mlp(n, "network");
+    mlp* m = import_mlp("network");
+    //export_mlp(m,"network2");
+    print_mlp(m);
+    /*
     size_t i;
     mlp* neural_net = calloc(1, sizeof(mlp));
     //malloc for input layer
@@ -48,25 +55,10 @@ void main(void)
 
 
 
-    /*
-    
-    set(&neural_net->input_layer,0,0,1);
-    set(&neural_net->input_layer,1,0,2);
-    set(&neural_net->input_layer,2,0,-2);
-    set(&neural_net->hidden_layer,0,0,1);
-    set(&neural_net->hidden_layer,0,1,2);
-    set(&neural_net->hidden_layer,0,2,3);
-    set(&neural_net->hidden_layer,2,1,0);
-    set(&neural_net->hidden_layer,1,1,0);
-    set(&neural_net->hidden_layer,1,0,0);
-    set(&neural_net->output_layer,0,0,0);
-    set(&neural_net->output_layer,0,1,0);
-    */
-
     export_mlp(neural_net, "network");
-    
-    mlp* n = import_mlp("network");
-    print_mlp(neural_net);
-    printf("\n");
-    print_mlp(n);
+    */
+    //n = import_mlp("network");
+    //print_mlp(n);
+    //printf("\n");
+    //export_mlp(n, "network2");
  }
