@@ -13,6 +13,13 @@ void free_layer (Layer layer)
     free(layer.biases);
 }
 
+
+void sigmoid(double* input)
+{
+    return;
+}
+
+
 void compute_output(Layer layer, double* input, double* output)
 {
     size_t w, h;
@@ -26,5 +33,7 @@ void compute_output(Layer layer, double* input, double* output)
         {
             output[i] += (input[j] * layer.weights[i][j]);
         }
-    }    
+        output[i] += layer.biases[i];
+    }
+    sigmoid(output);
 }

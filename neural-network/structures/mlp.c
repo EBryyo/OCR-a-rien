@@ -5,6 +5,18 @@
 #include <stdlib.h>
 
 
+unsigned char maxindex(double* array, size_t len)
+{
+    unsigned char res = 0;
+    for(unsigned char i = 1; i < len; i++)
+    {
+        if (array[res] < array[i])
+            res = i;
+    }
+    free(array);
+    return res;
+}
+
 mlp* init(size_t inputlen, size_t hiddenlen, size_t outputlen)
 {
     mlp* n;
@@ -62,9 +74,30 @@ void free_mlp(mlp* network)
     free(network);
 }
 
-void compute(mlp* network, double* input, size_t len, unsigned char output)
+unsigned char compute(mlp* network, double* input, size_t len)
 {
-    return;
+    double *layer1, *layer2, *layer3;
+    
+    layer1 = calloc(network->input_layer.w, sizeof(double));
+    compute_output(network->input_layer, input, layer1);
+    
+    layer2 = calloc(network->hidden_layer.w, sizeof(double));
+    compute_output(network->hidden_layer, layer1, layer2);
+    free(layer1);
+    
+    layer3 = calloc(network->output_layer.w,sizeof(double));
+    compute_output(network->output_layer, layer2, layer3);
+    free(layer2);
+    
+    unsigned char res = 0;
+    for(unsigned char i = 1; i < network->output_layer.w; i++)
+    {
+        if (layer3[res] < layer3[i])
+            res = i;
+    }
+    free(layer3);
+
+    return res;
 }
 
 mlp* import_mlp(char* source)

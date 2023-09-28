@@ -7,7 +7,7 @@
 void main(void)
 {
     mlp* n;
-    n = init(10, 5, 3);
+    n = init(784, 100, 10);
     export_mlp(n, "network");
     free_mlp(n);
     mlp* m = import_mlp("network");

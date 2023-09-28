@@ -18,8 +18,8 @@ mlp* init(size_t inputlen, size_t hiddenlen, size_t outputlen);
 void free_mlp(mlp* network);
 //frees memory allocated to network and its fields
 
-void compute(mlp* network, double* input, size_t len, unsigned char output);
-//computes input array through the MLP and into the output array
+unsigned char compute(mlp* network, double* input, size_t len);
+//computes input array through the MLP and returns the predicted number
 
 mlp* import_mlp( char* source);
 //returns mlp encoded at source
