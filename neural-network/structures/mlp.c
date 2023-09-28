@@ -54,7 +54,15 @@ mlp* init(size_t inputlen, size_t hiddenlen, size_t outputlen)
     return n;
 }
 
-void compute(mlp network, double* input, size_t len, unsigned char output)
+void free_mlp(mlp* network)
+{
+    free_layer(network->input_layer);
+    free_layer(network->hidden_layer);
+    free_layer(network->output_layer);
+    free(network);
+}
+
+void compute(mlp* network, double* input, size_t len, unsigned char output)
 {
     return;
 }

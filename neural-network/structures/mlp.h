@@ -15,7 +15,10 @@ typedef struct
 mlp* init(size_t inputlen, size_t hiddenlen, size_t outputlen);
 //initializes a network with appropriate sigmoid counts each layer
 
-void compute(mlp network, double* input, size_t len, unsigned char output);
+void free_mlp(mlp* network);
+//frees memory allocated to network and its fields
+
+void compute(mlp* network, double* input, size_t len, unsigned char output);
 //computes input array through the MLP and into the output array
 
 mlp* import_mlp( char* source);

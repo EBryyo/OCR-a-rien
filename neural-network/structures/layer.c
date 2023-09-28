@@ -3,6 +3,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void free_layer (Layer layer)
+{
+    for(size_t i = 0; i < layer.w; i++)
+    {
+        free(layer.weights[i]);
+    }
+    free(layer.weights);
+    free(layer.biases);
+}
+
 double* compute_output(Layer* layer, double* input, size_t input_len)
 {
     double* res = calloc(layer->w, sizeof(double));

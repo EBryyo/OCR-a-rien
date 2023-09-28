@@ -11,7 +11,10 @@ typedef struct Layer
     double* biases;
 }Layer;
 
-double* compute_output(Layer* layer, double* input, size_t input_len);
+void free_layer(Layer layer);
+//frees memory allocated to the weights and biases of layer
+
+double* compute_output(Layer layer, double* input, size_t input_len);
 //computes the outputs of the layer for given inputs
 
 #endif
