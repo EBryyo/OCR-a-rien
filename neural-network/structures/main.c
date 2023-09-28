@@ -6,9 +6,10 @@
 
 void main(void)
 {
-    //mlp* n;
-    //n = init(10, 5, 3);
-    //export_mlp(n, "network");
+    mlp* n;
+    n = init(10, 5, 3);
+    export_mlp(n, "network");
+    free_mlp(n);
     mlp* m = import_mlp("network");
     //export_mlp(m,"network2");
     print_mlp(m);
